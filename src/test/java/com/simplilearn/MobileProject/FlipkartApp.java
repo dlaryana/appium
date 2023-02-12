@@ -29,18 +29,18 @@ AndroidDriver<MobileElement> driver;
 		cap.setCapability("appActivity", "com.flipkart.android.SplashActivity");
 		cap.setCapability("noReset", true);
 		driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), cap);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
 	@Test
 	public void verifySteps() {
 		//click on search field
 		WebDriverWait wait = new WebDriverWait(driver, 60);
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.CheckedTextView[@text='Search for products']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[(@text='Search for products')]")));
 		driver.findElement(By.xpath("//*[(@text='Search for products')]")).click();
 		
 		//type ‘mobile’ in the search-box
-		MobileElement searchField = driver.findElement(By.xpath("//*[(@class='android.widget.EditText')]"));
+		MobileElement searchField = driver.findElement(By.xpath("//*[@resource-id,'main_content']/android.widget.FrameLayout"
+				+ "/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.EditText"));
 		searchField.sendKeys("mobile");
 
 	
@@ -51,13 +51,15 @@ AndroidDriver<MobileElement> driver;
 
 		//handle pop up window if any
 		MobileElement popWindow = driver.findElement(By.id("com.flipkart.android:id/not_now_button"));	
-		if(true) {
+		boolean isDisplayed = popWindow.isDisplayed();
+		while (isDisplayed) 
+		{
 			popWindow.click();
 		}
-		
-		//get text of the first product
-	     MobileElement firstProdTitle = driver.findElement(By.xpath(""));
-	     String firstProductTitle = firstProdTitle.getText();
+	
+	    //get text of the first product to validate later
+		 MobileElement firstProdTitle = driver.findElement(By.xpath(""));
+		 String firstProductTitle = firstProdTitle.getText();
 		
 		//click on the first product in the list
 		driver.findElement(By.xpath("//*[@resource-id,'main_content']/android.widget.FrameLayout/android.view.ViewGroup"
@@ -81,7 +83,9 @@ AndroidDriver<MobileElement> driver;
 		
 		//if screen to insert number appears close it
 		MobileElement phoneScreen = driver.findElement(By.id("com.flipkart.android:id/custom_back_icon"));
-		if(true) {
+		boolean isVisible = phoneScreen.isDisplayed();
+		while (isVisible) 
+		{
 			phoneScreen.click();
 		}
 		
