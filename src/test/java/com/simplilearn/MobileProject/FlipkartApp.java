@@ -58,8 +58,8 @@ AndroidDriver<MobileElement> driver;
 		}
 	
 	    //get text of the first product to validate later
-		 MobileElement firstProdTitle = driver.findElement(By.xpath(""));
-		 String firstProductTitle = firstProdTitle.getText();
+		MobileElement firstProdTitle = driver.findElement(By.xpath(""));
+		String firstProductTitle = firstProdTitle.getText();
 		
 		//click on the first product in the list
 		driver.findElement(By.xpath("//*[@resource-id,'main_content']/android.widget.FrameLayout/android.view.ViewGroup"
@@ -101,13 +101,13 @@ AndroidDriver<MobileElement> driver;
 		
 		
 		//Validating titles are the same
-		 if(product.equals(firstProductTitle)) {
-		    	System.out.println("Title is the same");
-		 }else {
-		    	System.out.println("Title is not the same");
-		 }
+		if(product.equals(firstProductTitle)) {
+		    System.out.println("Title is the same");
+		}else {
+		    System.out.println("Title is not the same");
+		}
 	    
-		 driver.quit();
+		driver.quit();
 
 	}
 
